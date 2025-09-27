@@ -1,0 +1,1 @@
+#get details(name, email, user id, subscription expiry date)

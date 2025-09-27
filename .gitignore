@@ -1,0 +1,9 @@
+# .gitignore
+.env
+.test.py
+# Ignore Python cache files
+__pycache__/
+.routes/__pycache__/
+DigitalMenuCardVirtualEnv/
+run_commands.bat
+
