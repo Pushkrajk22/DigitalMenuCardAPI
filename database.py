@@ -11,4 +11,5 @@ supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 # Define table handlers like variables
 UserDetails_table = supabase.table("UserDetails")
+MenuItems_table = supabase.table("MenuItems")
 

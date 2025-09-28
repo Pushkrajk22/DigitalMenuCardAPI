@@ -2,8 +2,11 @@ from fastapi import FastAPI
 from dotenv import load_dotenv
 import os
 from fastapi.middleware.cors import CORSMiddleware
-
-
+from routes.LoginRoutes import router as AuthRouter
+from routes.MenuItemRoutes import router as MenuItemRouter
+from routes.AnalyticsRoutes import router as AnalyticsRouter
+from routes.ProfileRoutes import router as ProfileRouter
+from routes.GithubRoutes import router as GithubRouter
 # Set allowed origins — in dev you can use "*" or allow localhost
 origins = [
     "http://localhost:3000",          # for local frontend dev
@@ -16,7 +19,16 @@ origins = [
 # Load environment variables from .env file
 load_dotenv()
 
-app = FastAPI(root_path="/api")
+app = FastAPI(root_path="/api",swagger_ui_parameters={
+        "persistAuthorization": True,   # Keeps your token even after refresh
+        "docExpansion": "none"          # Collapses the docs by default
+    })
+
+app.include_router(AuthRouter)
+app.include_router(MenuItemRouter)
+app.include_router(AnalyticsRouter)
+app.include_router(ProfileRouter)
+app.include_router(GithubRouter)
 
 app.add_middleware(
     CORSMiddleware,
