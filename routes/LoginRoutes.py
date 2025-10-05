@@ -2,7 +2,7 @@
 
 
 from fastapi import APIRouter, HTTPException, Depends, Header, Query
-from models import UserDetails, UserRegisterModel
+from models import UserDetails, UserRegisterModel, LoginRequest
 from database import UserDetails_table
 from auth import hash_password, verify_password, create_access_token, decode_token
 from fastapi import Security
@@ -59,7 +59,9 @@ def register(user_input: UserRegisterModel):
 
 
 @router.post("/login")
-def login(email: str = Query(...), password: str = Query(...)):
+def login(request: LoginRequest):
+    email = request.email
+    password = request.password
     # Fetch user by email
     response = UserDetails_table.select("*").eq("email", email).execute()
     if not response.data:

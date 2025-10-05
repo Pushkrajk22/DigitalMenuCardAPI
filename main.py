@@ -7,6 +7,8 @@ from routes.MenuItemRoutes import router as MenuItemRouter
 from routes.AnalyticsRoutes import router as AnalyticsRouter
 from routes.ProfileRoutes import router as ProfileRouter
 from routes.GithubRoutes import router as GithubRouter
+from routes.QRCode_Routes import router as QRCodeRouter
+
 # Set allowed origins — in dev you can use "*" or allow localhost
 origins = [
     "http://localhost:3000",          # for local frontend dev
@@ -29,6 +31,7 @@ app.include_router(MenuItemRouter)
 app.include_router(AnalyticsRouter)
 app.include_router(ProfileRouter)
 app.include_router(GithubRouter)
+app.include_router(QRCodeRouter)
 
 app.add_middleware(
     CORSMiddleware,

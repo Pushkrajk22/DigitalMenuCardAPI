@@ -21,6 +21,11 @@ class UserRegisterModel(BaseModel):
     password: str
 
 
+class LoginRequest(BaseModel):
+    email: str
+    password: str
+
+
 class MenuItem(BaseModel):
     id: Optional[int] = Field(default=None)  # bigint → int auto-generated
     dish_name: str

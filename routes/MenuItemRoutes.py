@@ -118,3 +118,20 @@ def get_menu_card_for(user_id: str):
         return {"dishes": dishes}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
+    
+@router.get("/getDishById/{dish_id}")
+def get_dish_by_id(dish_id: int, Authorization: str = Security(api_key_header)):
+        # Get token from "Bearer <token>"
+    token = Authorization
+    payload = decode_token(token)
+    user_id = payload.get("user_id")
+    if not user_id:
+        raise HTTPException(status_code=401, detail="Invalid token")
+    try:
+        response = MenuItems_table.select("*").eq("id", dish_id).eq("user_id", user_id).execute()
+        dishes = response.data if hasattr(response, 'data') else []
+        if not dishes:
+            raise HTTPException(status_code=404, detail="No menu item found with this ID for the user")
+        return response.data[0]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
